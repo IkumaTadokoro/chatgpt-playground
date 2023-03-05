@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 import { Button } from "../utils/Button/Button";
 import useChatGpt from "../utils/ChatGpt/useChatGpt";
 import { Form } from "../utils/Form";
@@ -19,7 +20,12 @@ export default function AppFrame() {
         <div className="h-full px-5 pb-4 overflow-y-auto bg-zinc-900">
           <Form<{ openApiKey: string }>
             onSubmit={async (values) => {
+              if (!values.openApiKey) {
+                toast.error("API Keyを入力してください。");
+                return;
+              }
               setApiKey(values.openApiKey);
+              toast.success("API Keyを設定しました。");
             }}
             className="mb-12"
           >
@@ -32,7 +38,7 @@ export default function AppFrame() {
                   registration={register("openApiKey")}
                 />
                 <Button type="submit" size="sm">
-                  設定する （反応なし🙏）
+                  設定する
                 </Button>
               </>
             )}
@@ -45,6 +51,23 @@ export default function AppFrame() {
           <Outlet />
         </div>
       </div>
+      <Toaster
+        toastOptions={{
+          className: "bg-zinc-700",
+          success: {
+            style: {
+              background: "#111111",
+              color: "#dddddd",
+            },
+          },
+          error: {
+            style: {
+              background: "#111111",
+              color: "#dddddd",
+            },
+          },
+        }}
+      />
     </>
   );
 }

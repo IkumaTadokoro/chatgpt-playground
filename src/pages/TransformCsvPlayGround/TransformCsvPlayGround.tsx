@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import toast from "react-hot-toast";
 import { parse } from "csv-parse/browser/esm/sync";
 import useChatGpt from "../../utils/ChatGpt/useChatGpt";
 import { Header, Response, SimpleTable } from "../../utils/Playground";
@@ -11,7 +12,7 @@ import { FilePreview, readFileAsText } from "../../utils/Form";
 export default function TransformCsv() {
   const [input, setInput] = useState("");
   const [file, setFile] = useState<File | undefined>(undefined);
-  const [response, setResponse] = useState("");
+  const [response, setResponse] = useState<string | undefined>("");
   const [content, setContent] = useState<string[][] | undefined>(undefined);
   const [isLoading, setLoading] = useState(false);
   const { askChatGpt } = useChatGpt();
@@ -20,6 +21,7 @@ export default function TransformCsv() {
     const acceptedFile = acceptedFiles[0];
     const newContent = await readFileAsText(acceptedFile);
     const csvData: string[][] = parse(newContent, { columns: false });
+    setResponse(undefined);
     setContent(csvData);
     setFile(acceptedFile);
   }, []);
@@ -31,6 +33,7 @@ export default function TransformCsv() {
 
   const handleClick = async () => {
     try {
+      setResponse(undefined);
       setLoading(true);
       const fileContent = await readFileAsText(file as File);
       const messages = [
@@ -56,6 +59,7 @@ export default function TransformCsv() {
           - 各プログラミング言語での実装例ではなく、あくまでこのようなテーブルを推測した結果を返してください。
           - ${input}である可能性が少しでもある列はすべて変換してください。
           - 推測したテーブル以外の内容は返答に含めないでください。
+          - ${input}と判断されなかった列はそのまま返してください。
           `,
         },
         {
@@ -68,6 +72,7 @@ export default function TransformCsv() {
     } catch (error) {
       console.error(error);
     } finally {
+      toast.success("終了しました。");
       setLoading(false);
     }
   };
