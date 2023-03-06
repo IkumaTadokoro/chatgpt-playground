@@ -1,18 +1,18 @@
 import { Outlet } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { Button } from "../utils/Button/Button";
-import useChatGpt from "../utils/ChatGpt/useChatGpt";
+import useOpenAI from "../utils/OpenAI/useOpenAI";
 import { Form } from "../utils/Form";
 import { InputField } from "../utils/Form/InputField";
 import Header from "./Header";
 import Navigation from "./Navigation";
 
 export default function AppFrame() {
-  const { setApiKey } = useChatGpt();
+  const { setApiKey } = useOpenAI();
 
   return (
     <>
-      <Header siteName="ChatGPT API Playground" />
+      <Header siteName="OpenAI API Playground" />
       <aside
         className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform bg-zinc-900 border-r border-zinc-800 translate-x-0"
         aria-label="Sidebar"

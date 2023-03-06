@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { Spinner } from "../Spinner";
 
 type ResponseProps = {
-  response: string;
+  response: string | undefined;
   isLoading: boolean;
 };
 

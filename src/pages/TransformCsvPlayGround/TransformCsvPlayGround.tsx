@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
 import { parse } from "csv-parse/browser/esm/sync";
-import useChatGpt from "../../utils/ChatGpt/useChatGpt";
+import useOpenAI from "../../utils/OpenAI/useOpenAI";
 import { Header, Response, SimpleTable } from "../../utils/Playground";
 import InputSection from "../../utils/Playground/InputSection";
 import { Button } from "../../utils/Button/Button";
@@ -15,7 +15,7 @@ export default function TransformCsv() {
   const [response, setResponse] = useState<string | undefined>("");
   const [content, setContent] = useState<string[][] | undefined>(undefined);
   const [isLoading, setLoading] = useState(false);
-  const { askChatGpt } = useChatGpt();
+  const { askChatGpt } = useOpenAI();
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     const acceptedFile = acceptedFiles[0];

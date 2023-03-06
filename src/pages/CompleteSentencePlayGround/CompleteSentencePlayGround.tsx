@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Header, Response } from "../../utils/Playground";
 import InputSection from "../../utils/Playground/InputSection";
 import { Button } from "../../utils/Button/Button";
-import useChatGpt from "../../utils/ChatGpt/useChatGpt";
+import useOpenAI from "../../utils/OpenAI/useOpenAI";
 
 export default function CompleteSentence() {
   const [input, setInput] = useState("");
   const [response, setResponse] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const { askChatGpt } = useChatGpt();
+  const { askChatGpt } = useOpenAI();
 
   const handleClick = async () => {
     try {

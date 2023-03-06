@@ -13,6 +13,8 @@ export default function Navigation() {
     { name: "文章補完", path: "/complete-sentence" },
     { name: "CSVのカラム補完", path: "/column-mapping" },
     { name: "CSVの縦横変換", path: "/transform-csv" },
+    { name: "文字起こし", path: "/whisper" },
+    { name: "文字起こしして要約", path: "/whisper-with-summary" },
   ];
 
   return (
