@@ -148,7 +148,7 @@ export default function TransformCsv() {
           </Button>
         </>
       </InputSection>
-      <Response response={response} isLoading={isLoading} />
+      {response && <Response response={response} isLoading={isLoading} />}
     </>
   );
 }
